@@ -43,5 +43,6 @@ createApp({
     },
     created(){
         this.getTodos();
+        console.log(this.todos);
     }
 }).mount('#app');

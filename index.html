@@ -18,7 +18,7 @@
         <div class="container">
             <h1>Todolist</h1>
             <ul>
-                <li v-for="todo in todos"> {{ todo.text }}</li>
+                <li v-for="(todo, index) in todos"> {{ todo.text }}</li>
             </ul>
         </div>
     </div>
