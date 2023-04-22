@@ -16,10 +16,31 @@
 <body>
     <div id="app">
         <div class="container">
-            <h1>Todolist</h1>
-            <ul>
-                <li v-for="(todo, index) in todos"> {{ todo.text }}</li>
-            </ul>
+            <!-- Login form -->
+            <form @submit.prevent="login" class="g-3 mt-2 me-0" v-if="!logged">
+                <label for="username">Username</label>
+                <input id="username" type="text" v-model="username">
+                <br><br>
+                <label for="password">Password</label>
+                <input id="password" type="password" v-model="password">
+                <br><br>
+                <button>Accedi</button>
+            </form>
+            <!-- /Login form -->
+            <!-- Todolist App -->
+            <div v-if="logged">
+                <h1>Todolist</h1>
+                <ul>
+                    <li v-for="(todo, index) in todos"> {{ todo.text }}
+                        <button @click="removeTodo(index)">X</button>
+                    </li>
+                </ul>
+                <form action="" @submit.prevent="addTodo">
+                    <input type="text" v-model="newTodo">
+                    <button type="submit" >invia</button>
+                </form>
+            </div>
+            <!-- /Todolist App -->
         </div>
     </div>
 

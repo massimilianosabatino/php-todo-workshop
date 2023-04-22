@@ -8,6 +8,7 @@ function addTodo($todo_list, $params){
     $todo = [
         'text' => $params['todo'],
         'done' => false,
+        'username' => $params['username'],
     ];
 
     $todo_list[] = $todo;
@@ -49,6 +50,7 @@ function editTodo($todo_list, $params){
     return $todo_list;
 };
 
+//funzione salvataggio todo in file
 function saveFile($file, $old_data = null, $new_data = null){
 
     //effettua backup
@@ -66,6 +68,23 @@ function saveFile($file, $old_data = null, $new_data = null){
         $fileName = __DIR__.'/'.$file;
         file_put_contents($fileName, $new_data);
     }
+};
+
+//funzione login utente
+function login($username, $password) {
+    $usersFile = file_get_contents(__DIR__ . '/users.json');
+    $users = json_decode($usersFile, true);
+
+    $foundUser = null;
+    for ($i = 0; $i < count($users); $i++) {
+        $user = $users[$i];
+        if ($user['username'] === $username && $user['password'] === $password) {
+            $foundUser = $user;
+            break;
+        }
+    }
+
+    return $foundUser;
 }
 
 ?>

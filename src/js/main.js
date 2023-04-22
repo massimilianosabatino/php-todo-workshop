@@ -31,13 +31,79 @@ createApp({
             //     }
             // ],
             todos: [],
+            newTodo: '',
+            // Login form
+            logged: false,
+            username: '',
+            password: ''
         }
     },
     methods: {
         getTodos(){
-            axios.get(this.apiUrl).then(response => {
+            //Get only for this user
+            const headers = {
+                username: this.username
+            };
+            console.log('sent headers', headers);
+
+            axios.get(this.apiUrl, { headers }).then(response => {
                 console.log(response);
                 this.todos = response.data;
+            })
+        },
+        addTodo(){
+            const data = {
+                add: true,
+                todo: this.newTodo,
+                username: this.username,
+            };
+
+            const headers = {
+                'Content-Type' : 'multipart/form-data',
+                'Accept': 'application/json',
+                username: this.username,
+            };
+
+            axios.post(this.apiUrl, data, {headers}).then(response => {
+                console.log(response)
+                this.todos = response.data;
+            });
+            this.newTodo = '';
+        },
+        removeTodo(i){
+            const data = {
+                delete: i,
+            };
+
+            const headers = {
+                'Content-Type' : 'multipart/form-data',
+                'Accept': 'application/json',
+                username: this.username,
+            };
+
+            axios.post(this.apiUrl, data, {headers}).then(response => {
+                console.log(response)
+                this.todos = response.data;
+            });
+        },
+        login() {
+            const data = {
+                action: 'login',
+                username: this.username,
+                password: this.password,
+            };
+            const headers = {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+            }
+            axios.post(this.apiUrl, data, { headers }).then((response) => {
+                console.log('login response', response.data);
+                if (response.data.username) {
+                    this.logged = true;
+                    this.getTodos();
+                } else {
+                    alert('Utente non trovato.');
+                }
             })
         }
     },
