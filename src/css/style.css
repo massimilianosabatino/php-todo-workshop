@@ -1,3 +1,9 @@
-body {
-    background-color: pink;
+header button {
+    background-color: transparent;
+    border: 1px solid lightgrey;
+    border-radius: .25rem;
+    position: fixed;
+    top: .625rem;
+    right: .625rem;
+    font-size: .625rem;
 }

@@ -86,7 +86,7 @@ createApp({
                 this.todos = response.data;
             });
         },
-        login() {
+        login(){
             const data = {
                 action: 'login',
                 username: this.username,
@@ -107,6 +107,10 @@ createApp({
                     alert('Utente non trovato.');
                 }
             })
+        },
+        logOut(){
+            sessionStorage.clear();
+            location.reload();
         }
     },
     created(){
